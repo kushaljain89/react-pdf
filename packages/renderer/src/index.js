@@ -49,6 +49,16 @@ const pdf = initialValue => {
 
     const layout = await layoutDocument(container.document, fontStore);
     const fileStream = renderPDF(ctx, layout);
+    fileStream.on('end', () => {
+      console.log('---------------- STREAM END ----------------');
+      console.log(fileStream);
+      console.log(layout);
+    });
+    fileStream.on('error', (error) => {
+      console.log('---------------- STREAM ERR ----------------');
+      console.log(fileStream);
+      console.log(layout);
+    });
     return { layout, fileStream };
   };
 
